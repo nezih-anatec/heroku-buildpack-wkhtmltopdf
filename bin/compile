@@ -3,7 +3,6 @@
 
 BUILD_DIR=$1
 CACHE_DIR=$2
-WKHTMLTOPDF_URL="https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb"
 
 function prints() {
   echo "-----> $*"
@@ -14,8 +13,13 @@ if [ "$STACK" = "heroku-18" ];then
 	WKHTMLTOPDF_URL="https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb"
 elif [ "$STACK" = "heroku-20" ];then
 	WKHTMLTOPDF_URL="https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb"
+elif [ "$STACK" = "heroku-22" ];then
+	WKHTMLTOPDF_URL="https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb"
+elif [ "$STACK" = "heroku-24" ];then
+	WKHTMLTOPDF_URL="https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_amd64.deb"
 fi
 #Done
+
 
 #Checking and updating the $WKHTMLTOPDF_URL from Aptfile
 if [ -f "$BUILD_DIR/Aptfile" ]; then
@@ -29,7 +33,7 @@ fi
 
 WKHTMLTOPDF_PATH_EXTRACT=$CACHE_DIR/wkhtmltox
 DESTINATION=$BUILD_DIR/bin
-PACKAGE_NAME=$CACHE_DIR/$(basename $WKHTMLTOPDF_URL) 
+PACKAGE_NAME=$CACHE_DIR/$(basename $WKHTMLTOPDF_URL)
 
 # Move files to /app/bin
 if [ ! -f "$DESTINATION/wkhtmltoimage" ]; then
